@@ -1,2 +1,1 @@
-# portafolio
-Portafolio interactivo en formato terminal hecho con React y TypeScript. En constante aprendizaje.
+Portafolio personal interactivo desarrollado con React y TypeScript, inspirado en una terminal de comandos. Diseñado para aprender y experimentar con tecnologías modernas del ecosistema frontend mientras muestro mis proyectos, habilidades y experiencia.
