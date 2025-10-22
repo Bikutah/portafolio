@@ -1,7 +1,13 @@
-pull_request:
+name: CI
 on:
+  pull_request:
+    branches:
+      - main
   push:
-    branches: ["main", "funcionalidad/**", "configuracion/**"]
+    branches:
+      - main
+      - funcionalidad/**
+      - configuracion/**
 
 jobs:
   lint-and-format-check:
