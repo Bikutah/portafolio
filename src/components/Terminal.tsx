@@ -1,5 +1,5 @@
 import { useState } from "react";
-import '../styles.css'
+import "../styles.css";
 
 type TypeHistorial = {
   cmd: string;
@@ -39,8 +39,10 @@ export default function Terminal() {
   }
   return (
     <div className=" bg-[var(--color-ubuntu-terminal)] p-10 rounded-b-md text-white inline-block align-bottom">
-
-      <ul className=" items-center gap-2 font-mono text-sm text-emerald-400" style={{ listStyle: "none", paddingLeft: 0, marginTop: 8 }}>
+      <ul
+        className=" items-center gap-2 font-mono text-sm text-emerald-400"
+        style={{ listStyle: "none", paddingLeft: 0, marginTop: 8 }}
+      >
         {comandos.map((h) => (
           <li key={h} style={{ marginBottom: 6 }}>
             {h.toUpperCase()}
@@ -48,17 +50,22 @@ export default function Terminal() {
         ))}
       </ul>
 
-      <ul className=" items-center gap-2 font-mono text-sm text-emerald-400" style={{ listStyle: "none", paddingLeft: 0, marginTop: 8 }}>
+      <ul
+        className=" items-center gap-2 font-mono text-sm text-emerald-400"
+        style={{ listStyle: "none", paddingLeft: 0, marginTop: 8 }}
+      >
         {historialComandos.map((h, i) => (
           <li key={h.ts + "-" + i}>
-              [{new Date(h.ts).toLocaleTimeString()}]
-            <span>&gt; {h.cmd}</span> {h.output.toUpperCase()}
+            [{new Date(h.ts).toLocaleTimeString()}]<span>&gt; {h.cmd}</span>{" "}
+            {h.output.toUpperCase()}
           </li>
         ))}
       </ul>
 
       <form onSubmit={handleInput} className="w-full">
-        <label htmlFor="cmd" className="sr-only">Comando</label>
+        <label htmlFor="cmd" className="sr-only">
+          Comando
+        </label>
 
         <div className="flex items-center gap-2 font-mono text-sm text-emerald-400">
           <span className="shrink-0">
@@ -76,7 +83,6 @@ export default function Terminal() {
           />
         </div>
       </form>
-
     </div>
   );
 }

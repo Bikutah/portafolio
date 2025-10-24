@@ -2,13 +2,14 @@
 
 /* (Opcional) Tokens v4 con @theme */
 @theme {
-  --font-mono: "Ubuntu Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-mono:
+    "Ubuntu Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --color-ubuntu-orange: #E95420;
-  --color-ubuntu-yellow: #F5C211;
-  --color-ubuntu-green:  #38B44A;
-  --color-ubuntu-purple-900: #2A0939;
-  --color-ubuntu-purple-800: #3B0E49;
-  --color-ubuntu-purple-700: #4B135A;
+  --color-ubuntu-orange: #e95420;
+  --color-ubuntu-yellow: #f5c211;
+  --color-ubuntu-green: #38b44a;
+  --color-ubuntu-purple-900: #2a0939;
+  --color-ubuntu-purple-800: #3b0e49;
+  --color-ubuntu-purple-700: #4b135a;
   --color-ubuntu-terminal: #320327;
 }
