@@ -1,4 +1,5 @@
 import { useState } from "react";
+import '../styles.css'
 
 type TypeHistorial = {
   cmd: string;
@@ -8,7 +9,7 @@ type TypeHistorial = {
 };
 
 export default function Terminal() {
-  const comandos = ["ayuda", "sobre mi"];
+  const comandos = ["about me", "help"];
 
   const [historialComandos, setHistorialComandos] = useState<TypeHistorial[]>(
     [],
@@ -37,8 +38,9 @@ export default function Terminal() {
     setTexto("");
   }
   return (
-    <div>
-      <ul style={{ listStyle: "none", paddingLeft: 0, marginTop: 8 }}>
+    <div className=" bg-[var(--color-ubuntu-terminal)] p-10 rounded-b-md text-white inline-block align-bottom">
+
+      <ul className=" items-center gap-2 font-mono text-sm text-emerald-400" style={{ listStyle: "none", paddingLeft: 0, marginTop: 8 }}>
         {comandos.map((h) => (
           <li key={h} style={{ marginBottom: 6 }}>
             {h.toUpperCase()}
@@ -46,7 +48,7 @@ export default function Terminal() {
         ))}
       </ul>
 
-      <ul style={{ listStyle: "none", paddingLeft: 0, marginTop: 8 }}>
+      <ul className=" items-center gap-2 font-mono text-sm text-emerald-400" style={{ listStyle: "none", paddingLeft: 0, marginTop: 8 }}>
         {historialComandos.map((h, i) => (
           <li key={h.ts + "-" + i}>
               [{new Date(h.ts).toLocaleTimeString()}]
@@ -55,13 +57,26 @@ export default function Terminal() {
         ))}
       </ul>
 
-      <form onSubmit={handleInput}>
-        <input
-          type="text"
-          value={texto}
-          onChange={(e) => setTexto(e.target.value)}
-        />
+      <form onSubmit={handleInput} className="w-full">
+        <label htmlFor="cmd" className="sr-only">Comando</label>
+
+        <div className="flex items-center gap-2 font-mono text-sm text-emerald-400">
+          <span className="shrink-0">
+            victor@ubuntu:<span className="text-cyan-400">~</span>$
+          </span>
+
+          <input
+            id="cmd"
+            type="text"
+            value={texto}
+            onChange={(e) => setTexto(e.target.value)}
+            autoFocus
+            className="flex-1 bg-transparent outline-none text-emerald-100 placeholder:text-emerald-700"
+            placeholder="escribí un comando…"
+          />
+        </div>
       </form>
+
     </div>
   );
 }
