@@ -5,15 +5,29 @@ type TypeHistorial = {
   cmd: string;
   status: "ok" | "error";
   output: string;
-  ts: number; // timestamp
 };
 
+type TypeComando = { comando: string; contenido: string };
+
 export default function Terminal() {
-  const comandos = ["about me", "help"];
+
+  const comandos = [
+    { comando: "help", contenido: "about: Informacion sobre mi.\nproyects: Listado de algunos proyectos en los que participe!\ntecnologias: Tecnologias que conozco.\ncontacto: Informacion de contacto." },
+    { comando: "about", contenido: "Aca va estar la informacion del help" }
+  ];
+
+
+
+
+  function buscarComando(input: string): TypeComando | undefined {
+    const inputSanatizado = input.trim().toLowerCase()
+    return comandos.find(c => c.comando.toLowerCase() === inputSanatizado)
+  }
 
   const [historialComandos, setHistorialComandos] = useState<TypeHistorial[]>(
     [],
   );
+
   const [texto, setTexto] = useState("");
 
   function handleInput(e: React.FormEvent) {
@@ -22,8 +36,8 @@ export default function Terminal() {
     const input = texto.trim();
     if (!input) return;
 
-    const esValido = comandos.includes(input);
-    const output = esValido ? input : "Error 404";
+    const esValido = buscarComando(input);
+    const output = esValido ? esValido.contenido : "Error comando no encontrado, escribe 'help' para ver la lista de los comandos disponibles.";
 
     setHistorialComandos((prev) => [
       ...prev,
@@ -31,36 +45,41 @@ export default function Terminal() {
         cmd: input,
         status: esValido ? "ok" : "error",
         output,
-        ts: Date.now(),
       },
     ]);
 
     setTexto("");
   }
   return (
-    <div className=" bg-[var(--color-ubuntu-terminal)] p-10 rounded-b-md text-white inline-block align-bottom">
+    <div className=" bg-[var(--color-ubuntu-terminal)] rounded-b-md text-white inline-block align-bottom">
+
       <ul
-        className=" items-center gap-2 font-mono text-sm text-emerald-400"
+        className=" items-center gap-2 font-mono text-sm text-white"
         style={{ listStyle: "none", paddingLeft: 0, marginTop: 8 }}
       >
-        {comandos.map((h) => (
-          <li key={h} style={{ marginBottom: 6 }}>
-            {h.toUpperCase()}
+        <span className="shrink-0">
+          Bienvenido a mi portafolio! Escribe 'help' para ver la lista de los comandos disponibles.
+        </span>
+      </ul>
+
+      <ul
+        className="items-center gap-2 font-mono text-sm text-white whitespace-pre-wrap"
+        style={{ listStyle: "none", paddingLeft: 0, marginTop: 8 }}
+      >
+        {historialComandos.map((h, i) => (
+          <li key={i} className="whitespace-pre-wrap">
+
+            <div className="flex items-center gap-2 font-mono text-sm text-emerald-400">
+              <span className="shrink-0">
+                victor@portafolio:<span className="text-cyan-400">~</span>$ {h.cmd}
+              </span>
+            </div>
+
+            {h.output}
           </li>
         ))}
       </ul>
 
-      <ul
-        className=" items-center gap-2 font-mono text-sm text-emerald-400"
-        style={{ listStyle: "none", paddingLeft: 0, marginTop: 8 }}
-      >
-        {historialComandos.map((h, i) => (
-          <li key={h.ts + "-" + i}>
-            [{new Date(h.ts).toLocaleTimeString()}]<span>&gt; {h.cmd}</span>{" "}
-            {h.output.toUpperCase()}
-          </li>
-        ))}
-      </ul>
 
       <form onSubmit={handleInput} className="w-full">
         <label htmlFor="cmd" className="sr-only">
@@ -69,16 +88,17 @@ export default function Terminal() {
 
         <div className="flex items-center gap-2 font-mono text-sm text-emerald-400">
           <span className="shrink-0">
-            victor@ubuntu:<span className="text-cyan-400">~</span>$
+            victor@portafolio:<span className="text-cyan-400">~</span>$
           </span>
 
           <input
             id="cmd"
             type="text"
+            autoComplete="off"
             value={texto}
             onChange={(e) => setTexto(e.target.value)}
             autoFocus
-            className="flex-1 bg-transparent outline-none text-emerald-100 placeholder:text-emerald-700"
+            className="flex-1 bg-transparent outline-none text-white placeholder:text-emerald-700"
             placeholder="escribí un comando…"
           />
         </div>
